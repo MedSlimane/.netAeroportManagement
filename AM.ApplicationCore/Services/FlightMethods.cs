@@ -28,15 +28,19 @@ public class FlightMethods : IFlightMethods
     {
         List<DateTime> flightDates = new List<DateTime>();
 
-        foreach (var flight in Flights)
-        {
-            if (flight.Destination == destination)
-            {
-                flightDates.Add(flight.FlightDate);
-            }
-        }
+        //foreach (var flight in Flights)
+        //{
+        //    if (flight.Destination == destination)
+        //    {
+        //        flightDates.Add(flight.FlightDate);
+        //    }
+        //}
 
-        return flightDates;
+        //return flightDates;
+        var query = from flight in Flights 
+                    where flight.Destination == destination
+                    select flight.FlightDate;
+        return query.ToList();
     }
 
     public void GetFlights(string filterType, string filterValue)
@@ -72,6 +76,38 @@ public class FlightMethods : IFlightMethods
                 default:
                     break;
             }
+        }
+    }
+
+    public int ProgrammedFlightNumber(DateTime startDate)
+    {
+        var query = from f in Flights
+                    //where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+                    where DateTime.Compare(f.FlightDate, startDate) >= 0
+                    && (f.FlightDate - startDate).TotalDays < 7
+                    select f;
+        return query.Count();
+    }
+
+    public IEnumerable<Traveller> SeniorTravellers(Flight flight)
+    {
+        var query = from p in flight.Passengers.OfType<Traveller>()
+                    orderby p.BirthDate
+                    select p;
+        return query.Take(3);
+    }
+
+    public void ShowFlightDetails(Plane plane)
+    {
+        var query = from f in Flights
+                    where f.Plane == plane
+                    select new { f.FlightDate, f.Destination };
+        foreach (var item in query)
+        {
+            Console.WriteLine("destination = " +
+                item.FlightDate.ToString() +
+                " date = " +
+                item.Destination);
         }
     }
 }

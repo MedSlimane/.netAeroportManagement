@@ -85,3 +85,11 @@ foreach (DateTime date in dateTimes)
 }
 flightService.GetFlights("Destination", "Paris");
 
+flightService.ShowFlightDetails(TestData.Airbusplane);
+int count = flightService.ProgrammedFlightNumber(new DateTime(2022, 01, 01));
+Console.WriteLine($"Number of flights programmed after 01/01/2022: {count}");
+
+foreach (var traveller1 in flightService.SeniorTravellers(TestData.flight1))
+{
+    Console.WriteLine(traveller1.BirthDate);
+}
