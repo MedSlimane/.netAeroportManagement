@@ -10,5 +10,10 @@ public class Flight
     public int FlightId { get; set; }
     public Plane Plane { get; set; }
     public ICollection<Passenger> Passengers { get; set; }
-    
+
+    public override string ToString()
+    {
+        return
+            $"{nameof(Departure)}: {Departure}, {nameof(Destination)}: {Destination}, {nameof(EffectiveArrival)}: {EffectiveArrival}, {nameof(EstimatedDuration)}: {EstimatedDuration}, {nameof(FlightDate)}: {FlightDate}, {nameof(FlightId)}: {FlightId}, {nameof(Plane)}: {Plane}, {nameof(Passengers)}: {Passengers}";
+    }
 }

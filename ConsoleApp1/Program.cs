@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
+using AM.ApplicationCore.Domain;
 using AM.ApplicationDomain.Domains;
 using AM.ApplicationCore.Services;
 
@@ -64,9 +66,22 @@ traveller.PassengerType();
 // ========================================
 Console.WriteLine("\n--- Testing FlightMethods Service ---");
 
-FlightMethods flightService = new FlightMethods();
 
-// You can add flights to flightService.Flights and test:
+// You can add flights to flightService.Flights and test:,,,,,
 // flightService.Flights = TestData.listFlights; // If you create test data
 // var parisDates = flightService.GetFlightDates("Paris");
 // flightService.GetFlights("Destination", "Paris");
+
+
+FlightMethods flightService = new FlightMethods();
+List<Flight> flights = TestData.listFlights;
+flightService.Flights = flights;
+
+
+IEnumerable<DateTime> dateTimes = flightService.GetFlightDates("Paris");
+foreach (DateTime date in dateTimes)
+{
+    Console.WriteLine(date);
+}
+flightService.GetFlights("Destination", "Paris");
+

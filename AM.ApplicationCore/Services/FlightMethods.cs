@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Reflection;
 using AM.ApplicationCore.Interfaces;
 using AM.ApplicationDomain.Domains;
@@ -7,8 +8,8 @@ namespace AM.ApplicationCore.Services;
 public class FlightMethods : IFlightMethods
 {
     public List<Flight> Flights { get; set; } = new List<Flight>();
-    
-    public List<DateTime> GetFlightDates(string destination)
+
+    public IEnumerable<DateTime> GetFlightDates(string destination)
     {
         List<DateTime> flightDates = new List<DateTime>();
 
@@ -22,7 +23,7 @@ public class FlightMethods : IFlightMethods
 
         return flightDates;
     }
-    
+
     public List<DateTime> GetFlightDatesForEach(string destination)
     {
         List<DateTime> flightDates = new List<DateTime>();
@@ -37,27 +38,39 @@ public class FlightMethods : IFlightMethods
 
         return flightDates;
     }
-    
+
     public void GetFlights(string filterType, string filterValue)
     {
-        Console.WriteLine($"Flights where {filterType} = {filterValue}:");
-        Console.WriteLine("----------------------------------------");
-
-        PropertyInfo? property = typeof(Flight).GetProperty(filterType);
-
-        if (property == null)
-        {
-            Console.WriteLine($"Property '{filterType}' not found in Flight class.");
-            return;
-        }
-
         foreach (var flight in Flights)
         {
-            var propertyValue = property.GetValue(flight);
-
-            if (propertyValue != null && propertyValue.ToString() == filterValue)
+            switch (filterType)
             {
-                Console.WriteLine($"Flight to {flight.Destination} on {flight.FlightDate}, Duration: {flight.EstimatedDuration} min");
+                case "FlightDate":
+                    if (flight.FlightDate.ToString() == filterValue)
+                        Console.WriteLine(flight);
+                    break;
+                case "Destination":
+                    if (flight.Destination == filterValue)
+                        Console.WriteLine(flight);
+                    break;
+                case "FlightId":
+                    if (flight.FlightId.ToString() == filterValue)
+                        Console.WriteLine(flight);
+                    break;
+                case "Departure":
+                    if (flight.Departure == filterValue)
+                        Console.WriteLine(flight);
+                    break;
+                case "EffectiveArrival":
+                    if (flight.EffectiveArrival.ToString() == filterValue)
+                        Console.WriteLine(flight);
+                    break;
+                case "EstimatedDuration":
+                    if (flight.EstimatedDuration.ToString() == filterValue)
+                        Console.WriteLine(flight);
+                    break;
+                default:
+                    break;
             }
         }
     }
