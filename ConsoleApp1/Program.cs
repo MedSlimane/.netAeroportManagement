@@ -3,6 +3,7 @@
 using AM.ApplicationCore.Domain;
 using AM.ApplicationDomain.Domains;
 using AM.ApplicationCore.Services;
+using AM.Application.Core.Services;
 
 Plane p = new Plane(250,
     new DateTime(2020, 10, 10),
@@ -93,3 +94,9 @@ foreach (var traveller1 in flightService.SeniorTravellers(TestData.flight1))
 {
     Console.WriteLine(traveller1.BirthDate);
 }
+
+Passenger passenger2 = new 
+    Passenger { FirstName = "mohamed", LastName = "slimane"};
+
+passenger2.UpperFullName();
+Console.WriteLine(passenger2.FirstName + passenger2.LastName);
