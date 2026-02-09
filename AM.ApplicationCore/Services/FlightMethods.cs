@@ -37,10 +37,14 @@ public class FlightMethods : IFlightMethods
         //}
 
         //return flightDates;
-        var query = from flight in Flights 
-                    where flight.Destination == destination
-                    select flight.FlightDate;
-        return query.ToList();
+        //var query = from flight in Flights 
+        //            where flight.Destination == destination
+        //            select flight.FlightDate;
+        //return query.ToList();
+        return Flights
+            .Where(f => f.Destination == destination)
+            .Select(f => f.FlightDate)
+            .ToList();
     }
 
     public void GetFlights(string filterType, string filterValue)
@@ -81,33 +85,45 @@ public class FlightMethods : IFlightMethods
 
     public int ProgrammedFlightNumber(DateTime startDate)
     {
-        var query = from f in Flights
-                    //where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
-                    where DateTime.Compare(f.FlightDate, startDate) >= 0
-                    && (f.FlightDate - startDate).TotalDays < 7
-                    select f;
-        return query.Count();
+        //var query = from f in Flights
+        //            //where f.FlightDate >= startDate && f.FlightDate < startDate.AddDays(7)
+        //            where DateTime.Compare(f.FlightDate, startDate) >= 0
+        //            && (f.FlightDate - startDate).TotalDays < 7
+        //            select f;
+        //return query.Count();
+        return Flights
+            .Count(f => DateTime.Compare(f.FlightDate, startDate) >= 0
+                && (f.FlightDate - startDate).TotalDays < 7);
     }
 
     public IEnumerable<Traveller> SeniorTravellers(Flight flight)
     {
-        var query = from p in flight.Passengers.OfType<Traveller>()
-                    orderby p.BirthDate
-                    select p;
-        return query.Take(3);
+        //var query = from p in flight.Passengers.OfType<Traveller>()
+        //            orderby p.BirthDate
+        //            select p;
+        //return query.Take(3);
+        return flight.Passengers
+            .OrderBy(p => p.BirthDate)
+            .OfType<Traveller>()
+            .Take(3);
     }
 
     public void ShowFlightDetails(Plane plane)
     {
-        var query = from f in Flights
-                    where f.Plane == plane
-                    select new { f.FlightDate, f.Destination };
-        foreach (var item in query)
+        //var flightDetils = from f in Flights
+        //            where f.Plane == plane
+        //            select new { f.FlightDate, f.Destination };
+        var flightDetails = Flights
+           .Where(f => f.Plane == plane)
+           .Select(f => new { f.FlightDate, f.Destination });
+        foreach (var item in flightDetails)
         {
             Console.WriteLine("destination = " +
                 item.FlightDate.ToString() +
                 " date = " +
                 item.Destination);
         }
+
+
     }
 }
