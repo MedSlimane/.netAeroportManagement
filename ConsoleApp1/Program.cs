@@ -100,3 +100,5 @@ Passenger passenger2 = new
 
 passenger2.UpperFullName();
 Console.WriteLine(passenger2.FirstName + passenger2.LastName);
+Console.WriteLine("duration average :" + flightService.DurationAverage("Paris"));
+flightService.DestinationGroupedFlights();
