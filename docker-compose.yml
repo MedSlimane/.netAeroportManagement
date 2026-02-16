@@ -4,13 +4,12 @@ services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sqlserver2022
-    platform: linux/amd64
     restart: unless-stopped
 
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "admin"
-      MSSQL_PID: "admin"
+      MSSQL_PID: "Developer"
 
     ports:
       - "1433:1433"
