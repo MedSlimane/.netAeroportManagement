@@ -20,7 +20,7 @@ public class AMContext : DbContext
                 "Server=localhost,1433;" +
                 "Database=AppDb;" +
                 "User Id=sa;" +
-                "Password=admin;" +
+                "Password=Adminadmin@123!;" +
                 "TrustServerCertificate=True;" +
                 "Encrypt=False;";
 
