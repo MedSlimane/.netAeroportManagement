@@ -9,6 +9,8 @@ public class Passenger
     public string LastName { get; set; }
     public string PassportNumber { get; set; }
     public int TelNumber { get; set; }
+    
+
     public ICollection<Flight> Flights { get; set; }
 
     public Passenger(string emailAddress, string firstName, string lastName)

@@ -9,6 +9,8 @@ public class Flight
     public DateTime FlightDate { get; set; }
     public int FlightId { get; set; }
     public Plane Plane { get; set; }
+
+    public string Airlinelogo { get; set; }
     public ICollection<Passenger> Passengers { get; set; }
 
     public override string ToString()
