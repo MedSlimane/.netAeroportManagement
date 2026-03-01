@@ -4,6 +4,7 @@ using AM.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AM.Infrastructure.Migrations
 {
     [DbContext(typeof(AMContext))]
-    partial class AMContextModelSnapshot : ModelSnapshot
+    [Migration("20260223082937_AnnotationsAndFluentAPI")]
+    partial class AnnotationsAndFluentAPI
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,7 +145,7 @@ namespace AM.Infrastructure.Migrations
 
                     b.HasIndex("PassengersId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("FlightPassenger", (string)null);
                 });
 
             modelBuilder.Entity("AM.ApplicationDomain.Domains.Staff", b =>

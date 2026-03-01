@@ -1,5 +1,7 @@
 namespace AM.ApplicationDomain.Domains;
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 public class Flight
 {
     public string Departure { get; set; }
@@ -8,6 +10,9 @@ public class Flight
     public int EstimatedDuration { get; set; }
     public DateTime FlightDate { get; set; }
     public int FlightId { get; set; }
+    
+    [ForeignKey(nameof(Plane))]
+    public int PlaneId { get; set; }
     public Plane Plane { get; set; }
 
     public string Airlinelogo { get; set; }

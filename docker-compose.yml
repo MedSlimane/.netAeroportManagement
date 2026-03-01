@@ -1,22 +1,15 @@
-version: "3.9"
-
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver2022
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: sqledge
     restart: unless-stopped
-
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Adminadmin@123!"
-      MSSQL_PID: "Developer"
-
     ports:
       - "1433:1433"
-
     volumes:
       - sqlserver_data:/var/opt/mssql
 
 volumes:
   sqlserver_data:
-

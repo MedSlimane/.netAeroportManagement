@@ -1,7 +1,10 @@
 namespace AM.ApplicationDomain.Domains;
 
+using System.ComponentModel.DataAnnotations;
+
 public class Plane
 {
+    [Range(1, int.MaxValue, ErrorMessage = "Capacity must be a positive integer")]
     public int Capacity { get; set; }
     public DateTime ManufactureDate { get; set; }
     public int PlaneId { get; set; }
